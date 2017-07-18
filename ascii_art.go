@@ -119,11 +119,11 @@ var patternDefinitions = []pattern{
 func connectsLike(char, pattern rune) bool {
 	switch pattern {
 	case '-':
-		return containsElem(char, []rune{'-', '>', '<', '-'}) || connectsLike(char, '+')
+		return containsElem(char, []rune{'-', '>', '<', '─'}) || connectsLike(char, '+')
 	case '=':
-		return containsElem(char, []rune{'=', '>', '<', '='}) || connectsLike(char, '+')
+		return containsElem(char, []rune{'=', '>', '<', '═'}) || connectsLike(char, '+')
 	case '|':
-		return containsElem(char, []rune{'|', '^', 'v', '|'}) || connectsLike(char, ':') || connectsLike(char, '+')
+		return containsElem(char, []rune{'|', '^', 'v', '│'}) || connectsLike(char, ':') || connectsLike(char, '+')
 	case ':':
 		return containsElem(char, []rune{':', '┆'})
 	case '+':
