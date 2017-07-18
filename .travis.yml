@@ -16,7 +16,7 @@ install:
   - go build -i
 
 script:
-  - gometalinter.v1 ./...
+  - gometalinter.v1 ./... -e "cyclomatic complexity"
   - go test -v -covermode=count -coverprofile=main.out ./...
 
 after_success:
