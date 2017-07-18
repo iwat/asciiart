@@ -22,7 +22,7 @@ func TestPatternFromString(t *testing.T) {
 }
 
 func TestBasicElementsSimpleBoxes(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"++  +-----+  +--+--+-----+  \n" +
 		"++  +--+  |  |  |  |     |  \n" +
 		"       |  |  +--+--+--+--+  \n" +
@@ -40,7 +40,7 @@ func TestBasicElementsSimpleBoxes(t *testing.T) {
 }
 
 func TestBasicElementsRoundedBoxes(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"..  .-----.  .--+--+-----.  \n" +
 		"''  '--.  |  |  |  |     |  \n" +
 		"       |  |  +--+--+--+--+  \n" +
@@ -58,7 +58,7 @@ func TestBasicElementsRoundedBoxes(t *testing.T) {
 }
 
 func TestBasicElementsDottedAndDoubleStrokes(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"++  .-----.  +==+==+=====+  \n" +
 		"++  +==+  :  |  :  |     |  \n" +
 		"       :  :  +==+==+==+==+  \n" +
@@ -76,7 +76,7 @@ func TestBasicElementsDottedAndDoubleStrokes(t *testing.T) {
 }
 
 func TestBasicElementsCastShadows(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"+-------------+   \n" +
 		"|             |   \n" +
 		"+---+     +---+#  \n" +
@@ -99,7 +99,7 @@ func TestBasicElementsCastShadows(t *testing.T) {
 
 // Already rendered portions are not affected.
 func TestPropertiesIdempotent(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"┌┐  ╭─────╮  ╒══╤══╤═════╕  ┌───┐   \n" +
 		"└┘  ╘══╕  ┆  │  ┆  │     │  │   │   \n" +
 		"       ┆  ┆  ╞══╧══╪══╤══╡  │   │█  \n" +
@@ -118,7 +118,7 @@ func TestPropertiesIdempotent(t *testing.T) {
 
 // Existing characters can be removed.
 func TestPropertiesIncrementalRemove(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"┌──┬ ┬──┐\n" +
 		"   │ │  │\n" +
 		"╞══╪ ╪══╡\n" +
@@ -141,7 +141,7 @@ func TestPropertiesIncrementalRemove(t *testing.T) {
 
 // New connections can be added.
 func TestPropertiesIncrementalAdd(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"┌──┐-┌──┐\n" +
 		"│  │ │  │\n" +
 		"╘══╛=╘══╛\n" +
@@ -164,7 +164,7 @@ func TestPropertiesIncrementalAdd(t *testing.T) {
 
 // Existing connections can be altered by replacing/adding characters.
 func TestPropertiesIncrementalReplace(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"┌──+──┐  .─────+─────.  ┌────┐    \n" +
 		"│  +==+  │     |     │  │####│    \n" +
 		"+==+  |  │     |     │  │#   │█   \n" +
@@ -192,7 +192,7 @@ func TestPropertiesIncrementalReplace(t *testing.T) {
 // lines, or connection pieces connecting horizontal single- and double-stroke
 // lines.
 func TestLimitations(t *testing.T) {
-	output := renderAsciiToUnicode("" +
+	output := renderASCIIToUnicode("" +
 		"--+==  .==.  .--.--.   \n" +
 		"  |    |  |  |  |  |   \n" +
 		"==+--  '=='  .--+--'   \n" +

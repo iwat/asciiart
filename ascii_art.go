@@ -8,7 +8,7 @@ import (
  * Transform a 'Plane' of ASCII characters to an equivalent plane where the
  * ASCII box drawings have been replaced by their Unicode counterpart.
  */
-func renderAsciiToUnicode(input string) string {
+func renderASCIIToUnicode(input string) string {
 	lines := strings.Split(input, "\n")
 
 	rendered := make([]string, len(lines))

@@ -12,5 +12,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(renderAsciiToUnicode(string(input)))
+	fmt.Println(renderASCIIToUnicode(string(input)))
 }
