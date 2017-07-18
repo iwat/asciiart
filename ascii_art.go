@@ -2,7 +2,6 @@ package main
 
 import (
 	"strings"
-	"unicode/utf8"
 )
 
 /*
@@ -12,15 +11,11 @@ import (
 func renderAsciiToUnicode(input string) string {
 	lines := strings.Split(input, "\n")
 
-	buf := make([]byte, 3)
 	rendered := make([]string, len(lines))
 	for row := 0; row < len(lines); row++ {
-		for col := 0; col < len(lines[row]); col++ {
-			buf[0] = 0
-			buf[1] = 0
-			buf[2] = 0
-			utf8.EncodeRune(buf, lookupPattern(patternFromString(lines, row, col)))
-			rendered[row] += string(buf)
+		runes := []rune(lines[row])
+		for col := 0; col < len(runes); col++ {
+			rendered[row] += string([]rune{lookupPattern(patternFromString(lines, row, col))})
 		}
 	}
 	return strings.Join(rendered, "\n")
@@ -33,7 +28,7 @@ func lookupPattern(pattern string) rune {
 	for _, patternDefinition := range patternDefinitions {
 		satisfied := true
 		for i := 0; i < 9; i++ {
-			if !connectsLike(rune(pattern[i]), rune(patternDefinition.pattern[i])) {
+			if !connectsLike([]rune(pattern)[i], []rune(patternDefinition.pattern)[i]) {
 				satisfied = false
 				break
 			}
@@ -43,21 +38,21 @@ func lookupPattern(pattern string) rune {
 		}
 		return patternDefinition.char
 	}
-	return rune(pattern[4])
+	return []rune(pattern)[4]
 }
 
 func patternFromString(lines []string, row, col int) string {
-	result := [9]byte{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+	result := [9]rune{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
 
-	result[0] = charAt(lines, row-1, col-1)
-	result[1] = charAt(lines, row-1, col)
-	result[2] = charAt(lines, row-1, col+1)
-	result[3] = charAt(lines, row, col-1)
-	result[4] = charAt(lines, row, col)
-	result[5] = charAt(lines, row, col+1)
-	result[6] = charAt(lines, row+1, col-1)
-	result[7] = charAt(lines, row+1, col)
-	result[8] = charAt(lines, row+1, col+1)
+	result[0] = runeAt(lines, row-1, col-1)
+	result[1] = runeAt(lines, row-1, col)
+	result[2] = runeAt(lines, row-1, col+1)
+	result[3] = runeAt(lines, row, col-1)
+	result[4] = runeAt(lines, row, col)
+	result[5] = runeAt(lines, row, col+1)
+	result[6] = runeAt(lines, row+1, col-1)
+	result[7] = runeAt(lines, row+1, col)
+	result[8] = runeAt(lines, row+1, col+1)
 
 	return string(result[:])
 }
@@ -144,16 +139,16 @@ func connectsLike(char, pattern rune) bool {
 	}
 }
 
-func charAt(lines []string, row, col int) byte {
+func runeAt(lines []string, row, col int) rune {
 	if row < 0 || row >= len(lines) {
 		return ' '
 	}
 
-	if col < 0 || col >= len(lines[row]) {
+	if col < 0 || col >= len([]rune(lines[row])) {
 		return ' '
 	}
 
-	return lines[row][col]
+	return []rune(lines[row])[col]
 }
 
 func containsElem(char rune, elems []rune) bool {
