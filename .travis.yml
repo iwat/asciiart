@@ -1,0 +1,23 @@
+language: go
+
+go:
+  - 1.8.x
+  - master
+
+env:
+  - PATH=$GOPATH/bin:$PATH
+
+install:
+  - go get -t ./...
+  - go get -u golang.org/x/tools/cmd/cover
+  - go get -u github.com/mattn/goveralls
+  - go get -u gopkg.in/alecthomas/gometalinter.v1
+  - gometalinter.v1 --install
+  - go build -i
+
+script:
+  - gometalinter.v1 ./...
+  - go test -v -covermode=count -coverprofile=main.out ./...
+
+after_success:
+  - goveralls -coverprofile=main.out -service=travis-ci
